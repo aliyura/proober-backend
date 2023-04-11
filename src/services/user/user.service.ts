@@ -20,9 +20,8 @@ import * as NodeCache from 'node-cache';
 import { Messages } from 'src/utils/messages/messages';
 import { UnitService } from '../unit/unit.service';
 import { JwtService } from '@nestjs/jwt';
-import { BusinessUserDto, UserBranchDto, KeyValue } from '../../dtos/user.dto';
+import { BusinessUserDto, UserBranchDto } from '../../dtos/user.dto';
 import { LogsService } from '../logs/logs.service';
-import { ServiceDetail, ProductDetail } from '../../dtos/user.dto';
 import { FundUnitDto } from '../../dtos/unit.dto';
 
 @Injectable()
