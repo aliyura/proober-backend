@@ -221,6 +221,13 @@ export class ResourceService {
         );
       }
 
+      if (requestDto.ownerIdentity !== resourceOwner.nin) {
+        console.log('NIN not match');
+        return Helpers.fail(
+          'Verification failed -Owner identity did not match',
+        );
+      }
+
       let verificationCharge = Number(process.env.VERIFICATION_CHARGE);
       if (authenticatedUser.accountType == AccountType.BUSINESS)
         verificationCharge = verificationCharge - 100; //100 naira discount for businesses

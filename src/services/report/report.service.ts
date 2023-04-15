@@ -48,9 +48,6 @@ export class ReportService {
     try {
       const query = {} as any;
 
-      if (authenticatedUser.accountType === AccountType.INDIVIDUAL)
-        return Helpers.fail(Messages.NoPermission);
-
       if (authenticatedUser.accountType !== AccountType.ADMIN) {
         query.currentOwnerUuid =
           authenticatedUser.businessId || authenticatedUser.uuid;
