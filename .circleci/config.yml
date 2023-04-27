@@ -21,5 +21,5 @@ jobs:
       - run:
           name: Build and push to DockerHub
           command: |
-            docker build --tag=aliyura/proover-backend:latest .
-            docker push aliyura/proover-backend:latest
+            docker build --tag=aliyura/pruber-backend:latest .
+            docker push aliyura/pruber-backend:latest
