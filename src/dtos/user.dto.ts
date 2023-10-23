@@ -4,6 +4,7 @@ export class UserDto {
   @IsString() name: string;
   @IsString() accountType: string;
   @IsString() phoneNumber: string;
+  @IsString() emailAddress: string;
   @IsOptional() @IsString() businessType: string;
   @IsOptional() @IsString() state: string;
   @IsOptional() @IsString() lga: string;
@@ -19,6 +20,7 @@ export class UserDto {
 export class BusinessUserDto {
   @IsString() name: string;
   @IsString() phoneNumber: string;
+  @IsOptional() @IsString() emailAddress: string;
   @IsOptional() @IsString() state: string;
   @IsOptional() @IsString() lga: string;
   @IsOptional() @IsString() address: string;

@@ -72,15 +72,12 @@ export class UserService {
 
       const request = {
         ...requestDto,
-        status:
-          requestDto.accountType === AccountType.INDIVIDUAL
-            ? Status.INACTIVE
-            : Status.ACTIVE,
+        status: Status.ACTIVE,
         code: Helpers.getCode(),
         role:
-          requestDto.accountType == AccountType.INDIVIDUAL
-            ? UserRole.USER
-            : UserRole.BUSINESS,
+          requestDto.accountType == AccountType.BUSINESS
+            ? UserRole.BUSINESS
+            : UserRole.USER,
 
         uuid:
           requestDto.accountType == AccountType.BUSINESS

@@ -50,6 +50,9 @@ export class User {
   @Prop()
   address: string;
 
+  @Prop({ required: true, unique: true })
+  emailAddress: string;
+
   @Prop()
   unitAddress: string;
 
