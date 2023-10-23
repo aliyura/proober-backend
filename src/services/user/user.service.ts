@@ -492,7 +492,9 @@ export class UserService {
 
   async validateUser(requestDto: ValidateUserDto): Promise<ApiResponse> {
     try {
-      const res = await this.findByPhoneNumberOrNin(requestDto.username);
+      const res = await this.findByPhoneNumberOrNinOrEmailAddress(
+        requestDto.username,
+      );
       if (res && res.success) {
         const user = res.data as User;
         const verificationOTP = Helpers.getCode();
@@ -515,7 +517,9 @@ export class UserService {
   }
   async verifyUser(requestDto: VerifyUserDto): Promise<ApiResponse> {
     try {
-      const res = await this.findByPhoneNumberOrNin(requestDto.username);
+      const res = await this.findByPhoneNumberOrNinOrEmailAddress(
+        requestDto.username,
+      );
       if (res && res.success) {
         const user = res.data;
         const userOtp = requestDto.otp;
@@ -542,7 +546,9 @@ export class UserService {
 
   async resetPassword(requestDto: ResetPasswordDto): Promise<ApiResponse> {
     try {
-      const res = await this.findByPhoneNumberOrNin(requestDto.username);
+      const res = await this.findByPhoneNumberOrNinOrEmailAddress(
+        requestDto.username,
+      );
       if (res && res.success) {
         const systemOtp = await this.cache.get(requestDto.username); //stored OTP in memory
 
@@ -573,7 +579,9 @@ export class UserService {
   async authenticatedUserByToken(authToken: string): Promise<ApiResponse> {
     try {
       const user = (await this.jwtService.decode(authToken)) as AuthUserDto;
-      const response = await this.findByPhoneNumberOrNin(user.username);
+      const response = await this.findByPhoneNumberOrNinOrEmailAddress(
+        user.username,
+      );
       if (response.success) {
         const user = response.data as User;
         if (user.status === Status.ACTIVE) {
@@ -635,10 +643,18 @@ export class UserService {
       return Helpers.fail(Messages.Exception);
     }
   }
-  async findByPhoneNumberOrNin(request: string): Promise<ApiResponse> {
+  async findByPhoneNumberOrNinOrEmailAddress(
+    request: string,
+  ): Promise<ApiResponse> {
     try {
       const response = await this.user
-        .findOne({ $or: [{ phoneNumber: request }, { nin: request }] })
+        .findOne({
+          $or: [
+            { phoneNumber: request },
+            { nin: request },
+            { emailAddress: request },
+          ],
+        })
         .exec();
 
       if (response) return Helpers.success(response);

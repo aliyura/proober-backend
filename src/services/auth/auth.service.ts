@@ -19,7 +19,7 @@ export class AuthService {
 
   async validateUser(authRequest: UserAuthDto): Promise<ApiResponse> {
     try {
-      const res = await this.userService.findByPhoneNumberOrNin(
+      const res = await this.userService.findByPhoneNumberOrNinOrEmailAddress(
         authRequest.username,
       );
 
